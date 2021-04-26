@@ -1,0 +1,100 @@
+
+SQL*Plus: Release 11.2.0.2.0 Production on Mon Apr 26 16:24:05 2021
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+SQL> conn dxctest
+Enter password:
+Connected.
+SQL> create table stocks(stock_name varchar(20),stock_price int,earning_per_share int, dividend int,trading_volume int);
+
+Table created.
+
+SQL> insert into stocks values('apple',100,20,50,15);
+
+1 row created.
+
+SQL> insert into stocks values('mango',150,30,60,25);
+
+1 row created.
+
+SQL> insert into stocks values('grape',80,15,40,40);
+
+1 row created.
+
+SQL> insert into stocks values('banana',50,14,30,70);
+
+1 row created.
+
+
+SQL> create table sales(stock_name varchar(20),product_id int,profit int,monthly_revenue int,total_revenue int);
+
+Table created.
+
+
+SQL> insert into sales values('mango',1,100,40,150);
+
+1 row created.
+
+SQL> insert into sales values('apple',2,200,50,260);
+
+1 row created.
+
+SQL> insert into sales values('banana',3,130,60,60);
+
+1 row created.
+
+SQL> insert into sales values('grapes',4,180,30,140);
+
+1 row created.
+
+SQL> select * from stocks;
+
+STOCK_NAME           STOCK_PRICE EARNING_PER_SHARE   DIVIDEND TRADING_VOLUME
+-------------------- ----------- ----------------- ---------- --------------
+apple                        100                20         50             15
+mango                        150                30         60             25
+grape                         80                15         40             40
+banana                        50                14         30             70
+
+SQL> select * from sales;
+
+STOCK_NAME           PRODUCT_ID     PROFIT MONTHLY_REVENUE TOTAL_REVENUE
+-------------------- ---------- ---------- --------------- -------------
+mango                         1        100              40           150
+apple                         2        200              50           260
+banana                        3        130              60            60
+grapes                        4        180              30           140
+
+SQL> select to_char(sysdate,'dd-mm-yyyy hh:mi') as "Current_date_time" from dual;
+
+Current_date_tim
+----------------
+26-04-2021 04:40
+
+SQL> select CURRENT_DATE as "current_date" from dual;
+
+current_d
+---------
+26-APR-21
+
+SQL> select to_char(sysdate,'dd/mm/yyyy')from dual;
+
+TO_CHAR(SY
+----------
+26/04/2021
+
+SQL> select sysdate, sysdate+10 as "Add_10_days" from dual;
+
+SYSDATE   Add_10_da
+--------- ---------
+26-APR-21 06-MAY-21
+
+
+SQL> select to_char(sysdate,'DAY') as "Day" from dual;
+
+Day
+------------------------------------
+MONDAY
+
+SQL>
