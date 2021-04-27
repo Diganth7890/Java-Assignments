@@ -1,0 +1,72 @@
+
+SQL*Plus: Release 11.2.0.2.0 Production on Tue Apr 27 21:06:48 2021
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+SQL> conn dxctest
+Enter password:
+Connected.
+
+SQL> create table college(
+  2  day varchar(10),
+  3  sess int,
+  4  faculty varchar(20),
+  5  sem varchar(5),
+  6  room varchar(5),
+  7  subject varchar(15),
+  8  unique (day,sess,faculty),
+  9  unique (day,sess,sem),
+ 10  unique (day,sess,room)
+ 11  );
+
+Table created.
+
+SQL> insert into college values('Monday',1,'John','7th','r1','Java');
+
+1 row created.
+
+SQL> insert into college values('Monday',1,'John','5th','r2','Testing');
+insert into college values('Monday',1,'John','5th','r2','Testing')
+*
+ERROR at line 1:
+ORA-00001: unique constraint (DXCTEST.SYS_C007038) violated
+
+
+SQL> insert into college values('Monday',1,'Cena','7th','r3','Dbms');
+insert into college values('Monday',1,'Cena','7th','r3','Dbms')
+*
+ERROR at line 1:
+ORA-00001: unique constraint (DXCTEST.SYS_C007039) violated
+
+
+SQL> insert into college values('Monday',1,'Rock','4th','r1','Data Structure');
+insert into college values('Monday',1,'Rock','4th','r1','Data Structure')
+*
+ERROR at line 1:
+ORA-00001: unique constraint (DXCTEST.SYS_C007040) violated
+
+
+SQL> insert into college values('Monday',1,'John','7th','r1','Dbms');
+insert into college values('Monday',1,'John','7th','r1','Dbms')
+*
+ERROR at line 1:
+ORA-00001: unique constraint (DXCTEST.SYS_C007038) violated
+
+
+SQL> insert into college values('Tuesday',1,'John','7th','r1','Java');
+
+1 row created.
+
+SQL> insert into college values('Monday',2,'John','7th','r1','Dbms');
+
+1 row created.
+
+SQL> select * from college;
+
+DAY              SESS FACULTY              SEM   ROOM  SUBJECT
+---------- ---------- -------------------- ----- ----- ---------------
+Monday              1 John                 7th   r1    Java
+Tuesday             1 John                 7th   r1    Java
+Monday              2 John                 7th   r1    Dbms
+
+SQL>
