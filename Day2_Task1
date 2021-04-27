@@ -1,0 +1,140 @@
+
+SQL*Plus: Release 11.2.0.2.0 Production on Tue Apr 27 23:23:08 2021
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+SQL> conn dxctest
+Enter password:
+Connected.
+SQL> create table employee(
+  2  empfname varchar(20),
+  3  empmname varchar(20),
+  4  emplname varchar(20),
+  5  empage int check(empage between 1 and 50),
+  6  empcity varchar(20) check (empcity like 'B%'),
+  7  empdesignation varchar(20) check (empdesignation like '%manager'),
+  8  empid varchar(5) check (empid like '_____'),
+  9  empdob date,
+ 10  constraint pk111 primary key(empid));
+
+Table created.
+
+SQL> insert into employee values('Sachin','Ramesh','Tendulkar',42,'Bangalore','Senior manager','emp01','20-jan-1980');
+
+1 row created.
+
+SQL> insert into employee values('Ab','Cd','Jadeja',28,'Bidar','Intern manager','emp02','01-jan-1995');
+
+1 row created.
+
+SQL> insert into employee values('Ef','Kl','Kholi',33,'Basvangudi','Assistant manager','emp03','15-feb-1987');
+
+1 row created.
+
+SQL> insert into employee values('Gh','Mn','Dhoni',38,'Boston','Board manager','emp04','20-apr-1983');
+
+1 row created.
+
+SQL> insert into employee values('Ij','Op','Raina',36,'Bangaladesh','General manager','emp05','16-jun-1985');
+
+1 row created.
+
+SQL> update employee set empcity='Bijapur' where empid='emp04';
+
+1 row updated.
+
+SQL> select * from employee;
+
+EMPFNAME             EMPMNAME             EMPLNAME                 EMPAGE
+-------------------- -------------------- -------------------- ----------
+EMPCITY              EMPDESIGNATION       EMPID EMPDOB
+-------------------- -------------------- ----- ---------
+Sachin               Ramesh               Tendulkar                    42
+Bangalore            Senior manager       emp01 20-JAN-80
+
+Ab                   Cd                   Jadeja                       28
+Bidar                Intern manager       emp02 01-JAN-95
+
+Ef                   Kl                   Kholi                        33
+Basvangudi           Assistant manager    emp03 15-FEB-87
+
+
+EMPFNAME             EMPMNAME             EMPLNAME                 EMPAGE
+-------------------- -------------------- -------------------- ----------
+EMPCITY              EMPDESIGNATION       EMPID EMPDOB
+-------------------- -------------------- ----- ---------
+Gh                   Mn                   Dhoni                        38
+Bijapur              Board manager        emp04 20-APR-83
+
+Ij                   Op                   Raina                        36
+Bangaladesh          General manager      emp05 16-JUN-85
+
+
+SQL> commit;
+
+Commit complete.
+
+SQL> delete from employee where empid='emp03';
+
+1 row deleted.
+
+SQL> delete from employee;
+
+4 rows deleted.
+
+SQL> select * from employee;
+
+no rows selected
+
+SQL> rollback;
+
+Rollback complete.
+
+SQL> select * from employee;
+
+EMPFNAME             EMPMNAME             EMPLNAME                 EMPAGE
+-------------------- -------------------- -------------------- ----------
+EMPCITY              EMPDESIGNATION       EMPID EMPDOB
+-------------------- -------------------- ----- ---------
+Sachin               Ramesh               Tendulkar                    42
+Bangalore            Senior manager       emp01 20-JAN-80
+
+Ab                   Cd                   Jadeja                       28
+Bidar                Intern manager       emp02 01-JAN-95
+
+Ef                   Kl                   Kholi                        33
+Basvangudi           Assistant manager    emp03 15-FEB-87
+
+
+EMPFNAME             EMPMNAME             EMPLNAME                 EMPAGE
+-------------------- -------------------- -------------------- ----------
+EMPCITY              EMPDESIGNATION       EMPID EMPDOB
+-------------------- -------------------- ----- ---------
+Gh                   Mn                   Dhoni                        38
+Bijapur              Board manager        emp04 20-APR-83
+
+Ij                   Op                   Raina                        36
+Bangaladesh          General manager      emp05 16-JUN-85
+
+
+SQL> select empfname||' '||empmname||' '||emplname as empname, to_char(empdob,'DD-MM-YYYY')as dob from employee;
+
+EMPNAME                                                        DOB
+-------------------------------------------------------------- ----------
+Sachin Ramesh Tendulkar                                        20-01-1980
+Ab Cd Jadeja                                                   01-01-1995
+Ef Kl Kholi                                                    15-02-1987
+Gh Mn Dhoni                                                    20-04-1983
+Ij Op Raina                                                    16-06-1985
+
+SQL> select substr(empfname,1,1)||'.'||substr(empmname,1,1)||'. '||emplname as empname from employee;
+
+EMPNAME
+-------------------------------
+S.R. Tendulkar
+A.C. Jadeja
+E.K. Kholi
+G.M. Dhoni
+I.O. Raina
+
+SQL>
