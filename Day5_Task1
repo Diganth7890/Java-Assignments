@@ -1,0 +1,110 @@
+1. create a function to check the given string contains UPPER case char or not
+
+public class UpperCase {
+	String hasUpper(String s) 
+	{
+		char [] a=s.toCharArray();
+		for(int i=0;i<a.length;i++)
+		{
+			 if(a[i]>=65 && a[i]<=90)
+				 return "Yes";
+		}
+		return "No";
+	}
+	
+	public static void main(String[] args) {
+		String str1="Hello";
+		String str2="nope";
+		UpperCase up = new UpperCase();
+		String ans1=up.hasUpper(str1);
+		System.out.println(ans1);
+		String ans2=up.hasUpper(str2);
+		System.out.println(ans2);
+	}
+}
+
+
+
+2.create a function to check the given string contains number   or not
+
+public class checkNumber {
+	String hasNumber(String s) 
+	{
+		char [] a=s.toCharArray();
+		for(int i=0;i<a.length;i++)
+		{
+			 if(a[i]>='0' && a[i]<='9')
+				 return "Yes";
+		}
+		return "No";
+	}
+	
+	public static void main(String[] args) {
+		String str1="Number13";
+		String str2="No_Number";
+		checkNumber num = new checkNumber();
+		String ans1=num.hasNumber(str1);
+		System.out.println(ans1);
+		String ans2=num.hasNumber(str2);
+		System.out.println(ans2);
+	}
+}
+
+
+
+
+3. create a function to check all chars in the given string are in  UPPER case or not
+
+public class AllUpperCase {
+	boolean isCapsOnly(String s) 
+	{
+		char [] a=s.toCharArray();
+		for(int i=0;i<a.length;i++)
+		{
+			 if(a[i]<65 || a[i]>90)
+				 return false;
+		}
+		return true;
+	}
+	
+	public static void main(String[] args) {
+		String str1="HEllo";
+		String str2="TRUE";
+		AllUpperCase up = new AllUpperCase();
+		boolean ans1=up.isCapsOnly(str1);
+		System.out.println(ans1);
+		boolean ans2=up.isCapsOnly(str2);
+		System.out.println(ans2);
+	}
+}
+
+
+4.create a function to count no of caps chars in the given string
+
+public class Capcount {
+	int countCaps(String s) 
+	{
+		int count=0;
+		char [] a=s.toCharArray();
+		for(int i=0;i<a.length;i++)
+		{
+			 if(a[i]>=65 && a[i]<=90)
+				 count++;
+		}
+		return count;
+	}
+	
+	public static void main(String[] args) {
+		String str1="no_cap";
+		String str2="FIVEhello";
+		Capcount cc = new Capcount();
+		int ans1=cc.countCaps(str1);
+		System.out.println(ans1);
+		int ans2=cc.countCaps(str2);
+		System.out.println(ans2);
+	}
+}
+
+
+
+
