@@ -1,0 +1,196 @@
+1.Numberformat for countries
+
+india - (example: +91-9999999999)
+// +91-9988776655 ->valid
+//+91-99A998877-> Invalid
+//+91-999988 -> invalid
+
+brazil - (example: +55 15 99999-9999)
+// +55 15 78945-5645
+
+norway-(example +47-49-99-99-99)
+qatar -(example +974 3399-9999)
+turkey -(example+90 509-999999 or 0509-999-999)    
+
+
+
+package Dxc_Tasks;
+
+interface Number{
+	public boolean phoneNumberFormat(String number) ;
+}
+
+public abstract class Country implements Number{
+	public static void main(String[] args) {
+		
+		 String indnum = "+91-9999999999";
+		 String branum="+55 15 78945-5645"; 
+		 String nornum="+47-49-99-99-99";  
+		 String qatnum="+974 3399-9999";
+		 String tur1num="+90 509-999999"; 
+		 String tur2num="0509-999-999";
+		 
+		 India india=new India();
+		 Qatar qatar=new Qatar();
+		 Brazil brazil=new Brazil(); 
+		 Norway norway=new Norway();
+		 Turkey turkey=new Turkey();
+		 
+		 System.out.println("India:"+india.phoneNumberFormat(indnum));
+		 System.out.println("Qatar:"+qatar.phoneNumberFormat(qatnum));
+		 System.out.println("Brazil:"+brazil.phoneNumberFormat(branum));
+		 System.out.println("Norway:"+norway.phoneNumberFormat(nornum));
+		 System.out.println("Turkey1:"+turkey.phoneNumberFormat(tur1num));
+	   System.out.println("Turkey2:"+turkey.phoneNumberFormat(tur2num));
+		 
+	}
+}
+
+
+  class India extends Country {
+  @Override 
+  public boolean phoneNumberFormat(String number)
+  { 
+	  char a[]=number.toCharArray();
+	  int total=0;
+	  if(a[0]=='+'&&a[1]=='9'&&a[2]=='1'&&a[3]=='-') 
+	  {  
+		  for(int i=4;i<a.length;i++) 
+		  {
+			  if(a[i]>='0'&&a[i]<='9') 
+				  total++; 
+			  else 
+				  return false; 
+			  }
+	  }
+	  	if(total==10) 
+				  return true; 
+			  else 
+				  return false; 
+			  	} 
+  } 
+  
+ class Brazil extends Country { 
+  @Override 
+  public boolean phoneNumberFormat(String number) 
+  {
+		  char a[]=number.toCharArray();
+			int total=0;
+			if(a[0]=='+'&&a[1]=='5'&&a[2]=='5'&&a[3]==' '&&a[4]=='1'&&a[5]=='5'&&a[6]==' ')
+			{
+				for(int i=7;i<a.length;i++)
+				{
+					if(i!=12)
+						if(a[i]>='0'&&a[i]<='9')
+							total++;
+						else
+							return false;
+					else
+						if(a[i]=='-')
+						total++;
+				}
+			}
+				if(total==10)
+				return true;
+			else 
+				return false;
+	  }
+	 }
+  
+  class Norway extends Country {
+  @Override 
+  public boolean phoneNumberFormat(String number) 
+  {
+	  char a[]=number.toCharArray();
+		int total=0;
+		if(a[0]=='+'&&a[1]=='4'&&a[2]=='7'&&a[3]=='-'&&a[4]=='4')
+		{
+			for(int i=5;i<a.length;i++)
+			{
+				if(i!=6&&i!=9&&i!=12)
+					if(a[i]>='0'&&a[i]<='9')
+						total++;
+					else
+						return false;
+				else 
+					if(a[i]=='-')
+						total++;
+			}
+		}	
+		if(total==10)
+			return true;
+		else 
+			return false;
+    } 
+  }
+ 
+class Qatar extends Country
+{
+	@Override
+	public boolean phoneNumberFormat(String number) {
+		char[]a=number.toCharArray();
+		int total=0;
+		if(a[0]=='+'&&a[1]=='9'&&a[2]=='7'&&a[3]=='4'&&a[4]==' '&&a[5]=='3'&&a[6]=='3')
+		{
+			for(int i=7;i<a.length;i++) 
+			{
+				if(i!=9) 
+				{
+					if(a[i]>='0'&&a[i]<='9')
+						total++;
+					else
+						return false;
+				}
+			else 
+				if(a[i]=='-')
+					total++;
+			}
+		}
+			if(total==7)
+				return true;
+			else 
+				return false;
+			}
+	}
+  
+  class Turkey extends Country {
+  @Override 
+  public boolean phoneNumberFormat(String number) 
+  { 
+	  char a[]=number.toCharArray();
+		int total=0;
+		if(a[0]=='+'&&a[1]=='9'&&a[2]=='0'&&a[3]==' '&&a[4]=='5'&&a[5]=='0'&&a[6]=='9'&&a[7]=='-')
+		{
+			for(int i=8;i<a.length;i++)
+			{
+				if(a[i]>='0'&&a[i]<='9')
+					total++;
+				else
+					return false;
+			}
+			if(total==6)
+				return true;
+			else 
+				return false;
+		}
+		else if(a[0]=='0'&&a[1]=='5'&&a[2]=='0'&&a[3]=='9'&&a[4]=='-')
+		{
+			for(int i=5;i<a.length;i++)
+			{
+				if(i!=8)
+					if(a[i]>='0'&&a[i]<='9')
+						total++;
+					else
+						return false;
+				else
+					if(a[i]=='-')
+						total++;
+			}
+		if(total==7)
+			return true;
+		else 
+			return false;
+		}
+		return false;
+	} 
+  }
