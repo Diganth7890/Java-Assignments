@@ -1,0 +1,156 @@
+1.create a table Player
+-> Name
+-> role
+-> style
+-> team
+
+----->>
+ insert player recs into the table from a jdbc program ensure util, model ,dao and service are implemented in your code.
+
+------------------------------------------------------------------------
+create table player(
+    Pname varchar(20),
+    Role varchar(20),
+    Style varchar(20),
+    Team varchar(10),
+    Age int
+    );
+
+Table created.
+------------------------------------------------------------------------
+
+package Dxc_Tasks.dbutil;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+
+public class DbConn {
+	public static Connection dbConnect() {
+		try {
+			Class.forName("oracle.jdbc.OracleDriver");
+			Connection con=DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe","diganth","pass");
+			return con;	
+		}
+		catch (Exception e){
+			e.printStackTrace();
+			return null;
+		}
+	}
+}
+
+---------------------------------------------------------------------------
+
+package Dxc_Tasks.model;
+
+public class Player {	
+	
+	String pname;
+	String role;
+	String style;
+	String team;
+	int age;
+	
+	public String getPname() {
+		return pname;
+	}
+	public void setPname(String pname) {
+		this.pname = pname;
+	}
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
+	public String getStyle() {
+		return style;
+	}
+	public void setStyle(String style) {
+		this.style = style;
+	}
+	public String getTeam() {
+		return team;
+	}
+	public void setTeam(String team) {
+		this.team = team;
+	}
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+	public Player(String pname, String role, String style, String team, int age) {
+		super();
+		this.pname = pname;
+		this.role = role;
+		this.style = style;
+		this.team = team;
+		this.age = age;
+	}
+	public Player(){
+		super();
+	}
+	@Override
+	public String toString() {
+		return "PlayerModel [pname=" + pname + ", role=" + role + ", style=" + style + ", team=" + team + ", age="
+				+ age + "]";
+	}
+
+}
+
+---------------------------------------------------------------------------
+
+package Dxc_Tasks.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+
+import Dxc_Tasks.dbutil.DbConn;
+import Dxc_Tasks.model.Player;
+
+public class PlayerDao {
+	public String savePlayer(Player player) {
+		try {
+			String sql="insert into player values(?,?,?,?,?)";
+			
+			Connection con =DbConn.dbConnect();
+			PreparedStatement stat=con.prepareStatement(sql);
+			
+			stat.setString(1, player.getPname());
+			stat.setString(2, player.getRole());
+			stat.setString(3, player.getStyle());
+			stat.setString(4, player.getTeam());
+			stat.setInt(5, player.getAge());
+			
+			int res= stat.executeUpdate();
+
+			if(res>0)
+			return "recs inserted";
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		return "Cannot insert records";
+	}
+
+-----------------------------------------------------------------------------------
+
+package Dxc_Tasks.service;
+
+import Dxc_Tasks.dao.PlayerDao;
+import Dxc_Tasks.model.Player;
+
+public class PlayerService {
+	public static void main(String[] args) {
+		
+		Player player=new Player("MS Dhoni","Batsman","Right Handed","CSK",37);
+		PlayerDao dao=new PlayerDao();
+		String result= dao.savePlayer(player);
+		System.out.println(result);
+	}                 
+}
+
+	
