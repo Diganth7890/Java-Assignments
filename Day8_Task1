@@ -1,0 +1,126 @@
+1. Note: create with all getter setter cont and to string
+
+// create showroom class which has cars in it . no duplicate car can be stored
+
+ShowRoom ,  Car ->
+name
+cars
+
+// create 2 showroom  objects ..
+
+// accept showroom name from the cmd and display cars in the showroom
+
+--------------------------------------------------------------------
+package Dxc_Tasks;
+
+public class Cars {
+	private String carName;
+	private int plateNumber;
+	private String fuelType;
+	private String ownerName;
+	private String showroomName;
+	
+	public String getCarName() {
+		return carName;
+	}
+	public void setCarName(String carName) {
+		this.carName = carName;
+	}
+	public int getPlateNumber() {
+		return plateNumber;
+	}
+	public void setPlateNumber(int plateNumber) {
+		this.plateNumber = plateNumber;
+	}
+	public String getOwnerName() {
+		return ownerName;
+	}
+	public void setOwnerName(String ownerName) {
+		this.ownerName = ownerName;
+	}
+	public String getFuelType() {
+		return fuelType;
+	}
+	public void setFuelType(String fuelType) {
+		this.fuelType = fuelType;
+	}
+	public String getShowroomName() {
+		return showroomName;
+	}
+	public void setShowroomName(String showroomName) {
+		this.showroomName = showroomName;
+	}
+	
+	public Cars(String carName, int plateNumber, String fuelType, String ownerName, String showroomName) {
+		super();
+		this.carName = carName;
+		this.plateNumber = plateNumber;
+		this.fuelType = fuelType;
+		this.ownerName = ownerName;
+		this.showroomName = showroomName;
+	}
+	
+	public Cars() {
+		super();
+	}
+	
+	@Override
+	public String toString() {
+		return "Cars [carName=" + carName + ", plateNumber=" + plateNumber + ", fuelType=" + fuelType + ", ownerName=" + ownerName
+				+ ", showroomName=" + showroomName + "]";
+	}
+}
+
+----------------------------------------------------------------------
+
+package Dxc_Tasks;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Scanner;
+
+public class ShowRoom {
+	public static void main(String[] args) {
+			
+		Cars car1 = new Cars("Alto", 3121, "Petrol", "Adasrh", "Maruti Suzuki");
+		Cars car2 = new Cars("Baleno", 4122, "Petrol", "Raina", "Maruti Suzuki");
+		Cars car3 = new Cars("Ertiga", 5131, "Diesel", "Dhoni", "Maruti Suzuki");
+		
+		ArrayList<Cars> maruti = new ArrayList<>();
+		maruti.add(car1);
+		maruti.add(car2);
+		maruti.add(car3);
+		
+		HashSet<Cars> newmaruti = new HashSet<>(maruti);
+		
+		Cars car4 = new Cars("BMW X1",5304, "Diesel", "Abhishek", "BMW");
+		Cars car5 = new Cars("BMW 3 Series", 0255, "Petrol", "Jadeja", "BMW");
+		Cars car6 = new Cars("BMW Z4", 6523, "Diesel", "Akshay", "BMW");
+		
+		ArrayList<Cars> bmw = new ArrayList<>();
+		bmw.add(car4);
+		bmw.add(car5);
+		bmw.add(car6);
+		
+		HashSet<Cars> newbmw = new HashSet<>(bmw);
+
+		Map<String, HashSet<Cars>> showroom =new HashMap<String, HashSet<Cars>>();
+		
+		showroom.put("MARUTI SUZUKI", newmaruti);
+		showroom.put("BMW", newbmw);
+
+		System.out.println("Enter ShowRoomName from (Maruti Suzuki,Bmw)  to See The List Of cars");
+
+		Scanner sc=new Scanner(System.in);
+
+		String name=sc.nextLine();
+		sc.close();
+		HashSet<Cars> findShowroom=showroom.get(name.toUpperCase());
+		for(Cars car:findShowroom)
+		{
+			System.out.println(car);
+		}
+	}
+}
